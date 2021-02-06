@@ -16,6 +16,8 @@ import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
@@ -57,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapClick(LatLng latLng) {
+
+        googleMap.addMarker(new MarkerOptions().position(latLng).title("Point on map"));
+
         projection = googleMap.getProjection();
         Point point = projection.toScreenLocation(latLng);
 
@@ -66,5 +71,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 "Lng: " + latLng.longitude + "\n" +
                 "X: " + point.x + "- Y: " + point.y,
                 Toast.LENGTH_SHORT).show();
+
+
     }
 }
