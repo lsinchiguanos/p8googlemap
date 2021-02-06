@@ -35,4 +35,15 @@
         android:text="BUENA FE"
         android:onClick="moveCamMap"/>
 
+    <Button
+        android:id="@+id/btnAnimated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="12dp"
+        android:text="Animado"
+        android:onClick="animatedCamMap"/>
+
 </RelativeLayout>

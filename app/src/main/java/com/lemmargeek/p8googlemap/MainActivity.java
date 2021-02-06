@@ -9,11 +9,14 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap googleMap;
+    private LatLng buenaFe = new LatLng(-0.8874108,-79.5071985);
+    private CameraUpdate cameraUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +38,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void moveCamMap(View view){
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(40.41, -3.69), 5);
+        cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(-0.8874108,-79.5071985), 5);
         googleMap.moveCamera(cameraUpdate);
+    }
+
+    public void animatedCamMap(View view){
+        CameraPosition cameraPosition = CameraPosition.builder().target(buenaFe).zoom(19).bearing(45).tilt(70).build();
+        cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+        googleMap.animateCamera(cameraUpdate);
     }
 
 }
