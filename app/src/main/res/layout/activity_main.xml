@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <fragment
+        android:id="@+id/btnFigura"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/map"
-        tools:context=".MainActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        tools:context=".MainActivity" />
 
     <Button
         android:id="@+id/btnView"
@@ -20,9 +21,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="12dp"
-        android:text="View"
-        android:onClick="changedViewMap"/>
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="6dp"
+        android:onClick="changedViewMap"
+        android:text="View" />
 
     <Button
         android:id="@+id/btnGo"
@@ -41,9 +43,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="96dp"
+        android:layout_marginStart="99dp"
         android:layout_marginTop="12dp"
-        android:text="Animado"
-        android:onClick="animatedCamMap"/>
+        android:onClick="animatedCamMap"
+        android:text="Animado" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="12dp"
+        android:text="Fig" />
 
 </RelativeLayout>

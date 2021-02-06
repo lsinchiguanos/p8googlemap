@@ -2,9 +2,9 @@ package com.lemmargeek.p8googlemap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.view.PointerIcon;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,8 +16,11 @@ import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolygonOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
@@ -25,13 +28,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LatLng buenaFe = new LatLng(-0.8874108,-79.5071985);
     private CameraUpdate cameraUpdate;
     private Projection projection;
+    private PolylineOptions polylineOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(R.id.btnFigura);
         mapFragment.getMapAsync(this);
     }
 
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         googleMap = googleMap;
         googleMap.setOnMapClickListener(this);
+        polylineOptions = new PolylineOptions();
     }
 
     public void changedViewMap(View view){
@@ -57,13 +62,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.animateCamera(cameraUpdate);
     }
 
+    public void drawPolygon(View view){
+        googleMap.clear();
+        polylineOptions = null;
+        polylineOptions.width(8);
+        polylineOptions.color(Color.RED);
+        googleMap.addPolyline(polylineOptions);
+    }
+
     @Override
     public void onMapClick(LatLng latLng) {
 
         googleMap.addMarker(new MarkerOptions().position(latLng).title("Point on map"));
-
         projection = googleMap.getProjection();
         Point point = projection.toScreenLocation(latLng);
+
+        polylineOptions.add(latLng);
 
         Toast.makeText(MainActivity.this,
                 "Click\n" +
@@ -71,7 +85,5 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 "Lng: " + latLng.longitude + "\n" +
                 "X: " + point.x + "- Y: " + point.y,
                 Toast.LENGTH_SHORT).show();
-
-
     }
 }
