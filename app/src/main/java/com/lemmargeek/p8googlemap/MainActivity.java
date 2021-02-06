@@ -1,22 +1,28 @@
 package com.lemmargeek.p8googlemap;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.PointerIcon;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     private GoogleMap googleMap;
     private LatLng buenaFe = new LatLng(-0.8874108,-79.5071985);
     private CameraUpdate cameraUpdate;
+    private Projection projection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap = googleMap;
+        googleMap.setOnMapClickListener(this);
     }
 
     public void changedViewMap(View view){
@@ -48,4 +55,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         googleMap.animateCamera(cameraUpdate);
     }
 
+    @Override
+    public void onMapClick(LatLng latLng) {
+        projection = googleMap.getProjection();
+        Point point = projection.toScreenLocation(latLng);
+
+        Toast.makeText(MainActivity.this,
+                "Click\n" +
+                "Lat: " + latLng.latitude + "\n" +
+                "Lng: " + latLng.longitude + "\n" +
+                "X: " + point.x + "- Y: " + point.y,
+                Toast.LENGTH_SHORT).show();
+    }
 }
